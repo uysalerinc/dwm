@@ -1,0 +1,8 @@
+# Post Compile Files
+*.o
+src/dwm
+
+# Prepatch files
+*.old
+*.orig
+*.rej
