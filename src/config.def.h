@@ -27,6 +27,11 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
+
+
+#define EDITOR "nvim"
+#define TERM "st"
+
 /* Select the font indices
  * the index is zero based*/
 static const int tagfontindex = 0; //Taglist font Index
@@ -73,7 +78,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-c", "-m", dmenumon, "-fn", dmenufont,  NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { TERM, NULL };
 
 static const char vol_up[]      =  "pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -44 $(pidof dwmblocks)" ;
 static const char vol_down[]    =  "pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -44 $(pidof dwmblocks)" ;
@@ -120,6 +125,13 @@ static Keychord *keychords[] = {
     &((Keychord){1, {{MODKEY, XK_KP_Add}}   , spawn,          SHCMD(vol_up) }),
     &((Keychord){1, {{MODKEY, XK_KP_Subtract}}   , spawn,          SHCMD(vol_down) }),
     &((Keychord){1, {{MODKEY, XK_KP_Multiply}}   , spawn,          SHCMD(vol_mute) }),
+
+
+    // Edit configs
+    &((Keychord){2, {{MODKEY, XK_e}, {0, XK_w}}   , spawn,          SHCMD(TERM " -e " EDITOR " ~/suckless/dwm/src") }),
+    &((Keychord){2, {{MODKEY, XK_e}, {0, XK_b}}   , spawn,          SHCMD(TERM " -e " EDITOR " ~/suckless/dwmblocks") }),
+    &((Keychord){2, {{MODKEY, XK_e}, {0, XK_m}}   , spawn,          SHCMD(TERM " -e " EDITOR " ~/suckless/dmenu/src/") }),
+    &((Keychord){2, {{MODKEY, XK_e}, {0, XK_t}}   , spawn,          SHCMD(TERM " -e " EDITOR " ~/suckless/st/src/") }),
 
 };
 
