@@ -20,7 +20,6 @@ dwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
-	mv config.h config.h.old
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
 
 dist: clean
@@ -42,5 +41,7 @@ install: all
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
+patchclear:
+	rm -f *.orig *.rej *.old
 
-.PHONY: all clean dist install uninstall
+.PHONY: all clean dist install uninstall patchclear
