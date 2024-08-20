@@ -11,7 +11,11 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;        /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[]          = {
+    "Hack Nerd Font:size=12",
+    "Hack Nerd Font Mono:size=10",
+    "Hack Nerd Font:size=10",
+};
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -23,10 +27,15 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
-
+/* Select the font indices
+ * the index is zero based*/
+static const int tagfontindex = 0; //Taglist font Index
+static const int focusfontindex = 1; // Middle bar font index
+static const int statusfontindex = 2; //Status and systrag font index
 /* tagging */
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char *tags[] = { "", "", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "","","","", "", "",};
+//{", "", "", ""}
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -35,7 +44,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
-	{ "firefox",  NULL,       NULL,       1<<1,         0,           -1 }, //Force firefox start on 2nd tab
+	{ "firefox",  NULL,       NULL,       1<<2,         0,           -1 }, //Force firefox start on 2nd tab
 };
 
 /* layout(s) */
