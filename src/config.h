@@ -17,20 +17,22 @@ static const char *fonts[]          = {
     "Hack Nerd Font:size=10",
 };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+// BackGround color
+static const char col_gray1[]       = "#574b70";
+// Inactive window border color
+static const char col_gray2[]       = "#caa9fa";
+// Font color
+static const char col_gray3[]       = "#e6e6e6";
+// Current tag and current windows font color
+static const char col_gray4[]       = "#ff79c6";
+// Top bar second color and active window border color
+static const char col_cyan[]        = "#caa9fa";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  }, //Active window
 };
 
-
-#define EDITOR "nvim"
-#define TERM "st"
 
 /* Select the font indices
  * the index is zero based*/
@@ -78,17 +80,17 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-c", "-m", dmenumon, "-fn", dmenufont,  NULL };
-static const char *termcmd[]  = { TERM, NULL };
+static const char *termcmd[]  = { "st", NULL };
 
 static const char vol_up[]      =  "pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -44 $(pidof dwmblocks)" ;
 static const char vol_down[]    =  "pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -44 $(pidof dwmblocks)" ;
 static const char vol_mute[]    =  "pactl set-sink-mute @DEFAULT_SINK@ toggle; kill -44 $(pidof dwmblocks)";
+static const char editConf[]    =  "/home/riezo/.scripts/edit_config";
 
 static Keychord *keychords[] = {
    /* Keys        function        argument */
    &((Keychord){1, {{MODKEY, XK_r}},                                       spawn,          {.v = dmenucmd } }),
    &((Keychord){1, {{MODKEY, XK_Return}},                        spawn,          {.v = termcmd } }),
-   &((Keychord){2, {{MODKEY, XK_e}, {MODKEY, XK_e}},                       spawn,          {.v = termcmd } }),
    &((Keychord){1, {{MODKEY, XK_b}},                                       togglebar,      {0} }),
    &((Keychord){1, {{MODKEY, XK_j}},                                       focusstack,     {.i = +1 } }),
    &((Keychord){1, {{MODKEY, XK_k}},                                       focusstack,     {.i = -1 } }),
@@ -128,10 +130,7 @@ static Keychord *keychords[] = {
 
 
     // Edit configs
-    &((Keychord){2, {{MODKEY, XK_e}, {0, XK_w}}   , spawn,          SHCMD(TERM " -e " EDITOR " ~/suckless/dwm/src") }),
-    &((Keychord){2, {{MODKEY, XK_e}, {0, XK_b}}   , spawn,          SHCMD(TERM " -e " EDITOR " ~/suckless/dwmblocks") }),
-    &((Keychord){2, {{MODKEY, XK_e}, {0, XK_m}}   , spawn,          SHCMD(TERM " -e " EDITOR " ~/suckless/dmenu/src/") }),
-    &((Keychord){2, {{MODKEY, XK_e}, {0, XK_t}}   , spawn,          SHCMD(TERM " -e " EDITOR " ~/suckless/st/src/") }),
+    &((Keychord){1, {{MODKEY, XK_e}}   , spawn,          SHCMD(editConf)}),
 
 };
 
