@@ -78,12 +78,13 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-p", "Run", NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 
 static const char vol_up[]      =  "pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -44 $(pidof dwmblocks)" ;
 static const char vol_down[]    =  "pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -44 $(pidof dwmblocks)" ;
 static const char vol_mute[]    =  "pactl set-sink-mute @DEFAULT_SINK@ toggle; kill -44 $(pidof dwmblocks)";
 static const char editConf[]    =  "dm_edit";
+static const char session_lock[] =  "dwm_lock";
 
 static Keychord *keychords[] = {
    /* Keys        function        argument */
@@ -129,6 +130,9 @@ static Keychord *keychords[] = {
 
     // Edit configs
     &((Keychord){1, {{MODKEY, XK_e}}   , spawn,          SHCMD(editConf)}),
+
+
+   &((Keychord){1, {{MODKEY|ShiftMask, XK_l}},                             spawn,     SHCMD(session_lock) }),
 
 };
 
