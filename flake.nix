@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   description = "My custom DWM window manager";
 
