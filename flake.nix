@@ -10,7 +10,11 @@
       name = "dwm";
       src = self;
 
-      buildInputs = [ nixpkgs.legacyPackages.x86_64-linux.xorg.libX11 ];
+      buildInputs = with nixpkgs.legacyPackages.x86_64-linux; [
+        xorg.libX11
+        xorg.libXft
+        freetype
+      ];
 
       prePatch = ''
         sed -i 's@/usr/local@$out@g' config.mk
