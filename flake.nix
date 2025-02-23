@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   description = "My custom DWM window manager";
 
@@ -11,12 +10,12 @@
       name = "dwm";
       src = self;
 
-  buildInputs = with pkgs; [
-    xorg.libX11
-    xorg.libXft
-    xorg.libXinerama
-    freetype
-  ];
+      buildInputs = with nixpkgs.legacyPackages.x86_64-linux; [
+        xorg.libX11
+        xorg.libXft
+        xorg.libXinerama
+        freetype
+      ];
 
       prePatch = ''
         sed -i 's@/usr/local@$out@g' config.mk
