@@ -1,28 +1,28 @@
-{
-  description = "My custom DWM window manager";
+{ pkgs, ... }:
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+pkgs.stdenv.mkDerivation rec {
+  pname = "dwm";
+  version = "custom";
+
+  src = pkgs.fetchFromGitHub {
+    owner = "your-username";
+    repo = "dwm";
+    rev = "your-branch-or-commit"; # e.g., "main" or "a1b2c3d"
+    sha256 = "0000000000000000000000000000000000000000000000000000"; # Replace with the actual hash
   };
 
-  outputs = { self, nixpkgs }: {
-    packages.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.stdenv.mkDerivation {
-      name = "dwm";
-      src = self;
+  buildInputs = with pkgs; [
+    xorg.libX11
+    xorg.libXft
+    xorg.libXinerama
+    freetype
+  ];
 
-      buildInputs = with nixpkgs.legacyPackages.x86_64-linux; [
-        xorg.libX11
-        xorg.libXft
-        freetype
-      ];
+  prePatch = ''
+    sed -i 's@/usr/local@${placeholder "out"}@g' config.mk
+  '';
 
-      prePatch = ''
-        sed -i 's@/usr/local@$out@g' config.mk
-      '';
-
-      installPhase = ''
-        make PREFIX=$out install
-      '';
-    };
-  };
+  installPhase = ''
+    make PREFIX=$out install
+  '';
 }
